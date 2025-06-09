@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especificidad</title>
+</head>
+<body>
+    <p class="clase">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui deserunt eum delectus veritatis illum. 
+        Corporis culpa mollitia quas ab nesciunt reiciendis at quod repudiandae quis quos, in beatae deleniti commodi!</p>
+
+    <p class="clase" id="id">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui deserunt eum delectus veritatis illum.
+        Corporis culpa mollitia quas ab nesciunt reiciendis at quod repudiandae quis quos, in beatae deleniti commodi!</p>
+
+    <p class="clase" id="id" style="background-color: rgb(204, 0, 255); font-size: medium;">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui deserunt eum delectus veritatis illum. 
+        Corporis culpa mollitia quas ab nesciunt reiciendis at quod repudiandae quis quos, in beatae deleniti commodi!</p>
+
+    <p class="clase2" id="id">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui deserunt eum delectus veritatis illum. 
+        Corporis culpa mollitia quas ab nesciunt reiciendis at quod repudiandae quis quos, in beatae deleniti commodi!</p>
+
+    <p class="clase2" id="id" style="background-color: rgb(0, 0, 0);">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui deserunt eum delectus veritatis illum. 
+        Corporis culpa mollitia quas ab nesciunt reiciendis at quod repudiandae quis quos, in beatae deleniti commodi!</p>
+<!-- p -->
+<!-- class -->
+<!-- id -->
+<!-- style -->
+<!-- !important -->
+</body>
+<style>
+    p {
+        background-color: #d04d4d; /* color de fondo para el encabezado */
+    }
+    .clase {
+        background-color: #7dd061; /* color de fondo para las celdas */
+    }
+    #id {
+        background-color: aqua;
+        font-size: 30px;
+    }
+    .clase2 {
+        background-color: #d321aa !important; /* color de fondo para el encabezado */
+        font-size: small;
+    }
+</style>
+</html>
