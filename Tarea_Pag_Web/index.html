@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple iPhone</title>
+    <!-- Enlace al archivo de estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Enlaces a la fuente de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Contenedor para el video de fondo -->
+    <video autoplay muted loop class="video-bg" id="bg-video">
+        <!-- Asegúrate de que el nombre del archivo de video sea correcto y esté en la misma carpeta -->
+        <source src="apple_video.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
+
+    <!-- Encabezado con las dos barras de navegación -->
+    <header>
+        <!-- Navegación Principal (iconos y secciones generales) -->
+        <nav class="main-nav">
+            <ul>
+                <li></li>
+                <li><a href="#">Tienda</a></li>
+                <li><a href="#">Mac</a></li>
+                <li><a href="#">iPad</a></li>
+                <li><a href="#">iPhone</a></li>
+                <li><a href="#">Watch</a></li>
+                <li><a href="#">AirPods</a></li>
+                <li><a href="#">TV y Casa</a></li>
+                <li><a href="#">Entretenimiento</a></li>
+                <li><a href="#">Soporte</a></li>
+                <li><a href="#">🔍</a></li>
+                <li><a href="#">🛒</a></li>
+            </ul>
+        </nav>
+        <!-- Navegación Secundaria (específica de la sección iPhone) -->
+        <nav class="secondary-nav">
+            <ul>
+                <li><a href="#">iPhone 15 Pro</a></li>
+                <li><a href="#">iPhone 15</a></li>
+                <li><a href="#">iPhone 14</a></li>
+                <li><a href="#">Comparar</a></li>
+                <li><a href="#">AirPods</a></li>
+                <li><a href="#">Accesorios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenido principal de la página -->
+    <main>
+        <h1>iPhone</h1>
+        <h2>Diseñado para conquistarte.</h2>
+    </main>
+
+    <!-- Botón para controlar la reproducción del video -->
+    <button id="pause-button" class="video-control">❚❚</button>
+
+    <!-- Enlace al archivo JavaScript antes de cerrar el body -->
+    <script src="script.js"></script>
+</body>
+</html>

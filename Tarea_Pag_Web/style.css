@@ -1,0 +1,127 @@
+/* CSS */
+
+/* Reseteo básico para eliminar márgenes y padding por defecto */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Inter', sans-serif; /* Fuente de Google similar a la de Apple */
+    height: 100%; /* Asegura que el cuerpo ocupe toda la altura */
+    
+    /* Fondo transparente para permitir que el video de fondo se vea.
+       Si el video no carga, el fondo será el del elemento <html> si se define, o el por defecto. */
+    background-color: transparent; 
+    
+    color: #fff; /* Color de texto principal (blanco) */
+    overflow-x: hidden; /* Evita la barra de scroll horizontal */
+}
+
+/* Video de Fondo       */
+
+.video-bg {
+    position: fixed; /* Lo fija en la ventana para que no se mueva con el scroll */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho */
+    height: 100%; /* Ocupa toda la altura */
+    object-fit: cover; /* Asegura que el video cubra todo el espacio sin deformarse */
+    z-index: -1; /* ¡IMPORTANTE! Envía el video detrás de todo el contenido */
+    opacity: 0.7; /* Le da una ligera opacidad para que no sea tan brillante */
+}
+
+
+/* Barra de Navegación (Header) */
+
+
+header {
+    width: 100%;
+    position: fixed; /* Fija el header en la parte superior */
+    top: 0;
+    z-index: 10; /* Se asegura de que esté por encima de otros elementos */
+    
+    /* Fondo negro semi-transparente para el efecto "cristal" */
+    background-color: rgba(0, 0, 0, 0.8); 
+    
+    /* Efecto de desenfoque para lo que esté detrás (el video) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
+}
+
+/* Estilo común para las dos barras de navegación */
+.main-nav, .secondary-nav {
+    display: flex;
+    justify-content: center; /* Centra el contenido de la barra */
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none; /* Quita los puntos de la lista */
+    display: flex; /* Pone los elementos en línea */
+    align-items: center; /* Alinea verticalmente los elementos */
+}
+
+nav ul li {
+    padding: 0 15px; /* Espaciado entre elementos del menú */
+}
+
+nav a {
+    color: #f5f5f7; /* Un blanco ligeramente más suave, como el de Apple */
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+    font-size: 12px;
+    opacity: 0.9; /* Un poco de transparencia */
+    transition: opacity 0.3s ease; /* Transición suave para el hover */
+}
+
+/* Efecto al pasar el ratón por encima */
+nav a:hover {
+    opacity: 1; /* El enlace se vuelve completamente opaco */
+}
+
+/* Contenido principal */
+
+main {
+    /* Posicionamiento para que no quede oculto detrás del header */
+    position: relative; 
+    top: 150px; 
+    
+    text-align: center; /* Centra el texto */
+    padding: 20px;
+}
+
+main h1 {
+    font-size: 80px;
+    font-weight: 600; /* Letra un poco más gruesa */
+    margin-bottom: 5px;
+}
+
+main h2 {
+    font-size: 30px;
+    font-weight: 400; /* Letra normal */
+    color: #ccc; /* Un gris claro para el subtítulo */
+}
+
+/* Estilo para el botón de control del video */
+
+.video-control {
+    position: fixed; /* Lo fija en la ventana */
+    bottom: 30px; /* A 30px del borde inferior */
+    right: 30px;  /* A 30px del borde derecho */
+    
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo blanco muy transparente */
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Borde blanco semi-transparente */
+    border-radius: 50%; /* Lo hace completamente redondo */
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer; /* Cambia el cursor a una mano */
+    z-index: 10; /* Se asegura de que esté por encima del video */
+    
+    /* Centra el ícono (❚❚ o ▶) dentro del botón */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
