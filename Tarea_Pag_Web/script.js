@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // Seleccionamos el video y el botón por su ID
-    const video = document.getElementById('bg-video');
+    const video = document.getElementById('main-video');
     const pauseButton = document.getElementById('pause-button');
 
     // Añadimos un "escuchador de eventos" que se activa cuando hacemos clic en el botón
