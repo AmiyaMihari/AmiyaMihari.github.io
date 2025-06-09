@@ -1,23 +1,19 @@
-// Espera a que todo el contenido de la página se cargue
+// El script se activa cuando el HTML está completamente cargado.
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Seleccionamos el video y el botón por su ID
+    // Referencias a los elementos del DOM que vamos a usar.
     const video = document.getElementById('main-video');
     const pauseButton = document.getElementById('pause-button');
 
-    // Añadimos un "escuchador de eventos" que se activa cuando hacemos clic en el botón
+    // Asignar la función al evento 'click' del botón.
     pauseButton.addEventListener('click', () => {
-        // Si el video está en pausa...
+        // Revisa si el video está pausado y actúa en consecuencia.
         if (video.paused) {
-            // ...lo reproducimos
             video.play();
-            // y cambiamos el ícono del botón a "pausa"
-            pauseButton.innerHTML = '❚❚';
-        } else { // Si el video se está reproduciendo...
-            // ...lo pausamos
+            pauseButton.innerHTML = '❚❚'; // Cambia el ícono a 'pausa'
+        } else {
             video.pause();
-            // y cambiamos el ícono del botón a "reproducir"
-            pauseButton.innerHTML = '▶';
+            pauseButton.innerHTML = '▶'; // Cambia el ícono a 'reproducir'
         }
     });
 

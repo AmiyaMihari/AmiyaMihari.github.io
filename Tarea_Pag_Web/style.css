@@ -1,21 +1,25 @@
-/* Reseteo básico y estilos generales del body */
+/* --- Estilos Generales --- */
+/* Reseteo universal para quitar los márgenes y paddings por defecto de los navegadores. */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Estilos base para todo el documento. */
 body, html {
     font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #fff; /* Fondo blanco */
+    background-color: #fff;
     height: 100%;
 }
 
-/* Estilos para el Header (la barra de navegación) */
+
+/* --- Header y Barra de Navegación --- */
+/* Estilo del contenedor del header, con efecto de desenfoque y posición fija. */
 header {
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); /* Compatibilidad con Safari */
     position: fixed;
     top: 0;
     left: 0;
@@ -24,17 +28,19 @@ header {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* Contenedor de la lista de navegación, usa flexbox para alinear los ítems. */
 header nav ul {
     list-style: none;
     display: flex;
-    justify-content: space-between; /* Distribuye el espacio entre los ítems */
+    justify-content: space-between;
     align-items: center;
-    height: 44px;
+    height: 44px; /* Altura estándar de la barra de Apple. */
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 10px; /* Añade un poco de padding lateral */
+    padding: 0 10px;
 }
 
+/* Estilos de los enlaces de la barra de navegación. */
 header nav ul li a {
     color: #1d1d1f;
     text-decoration: none;
@@ -46,54 +52,56 @@ header nav ul li a {
     align-items: center;
 }
 
+/* Efecto hover para los enlaces de la barra. */
 header nav ul li a:hover {
     opacity: 1;
 }
 
+/* Tamaño de los íconos de la barra de navegación. */
 .nav-icon {
-    /* CORRECCIÓN: Tamaño cuadrado fijo que funciona con el SVG estándar */
     width: 16px; 
     height: 16px;
-    fill: #1d1d1f;
+    fill: #1d1d1f; /* Afecta solo a los SVG en línea, como el carrito. */
 }
 
-/* Contenedor principal para empujar el contenido hacia abajo */
+
+/* --- Contenido Principal --- */
+/* Contenedor que empuja el contenido hacia abajo para que no quede oculto por el header. */
 .main-content {
-    padding-top: 44px; /* Altura del header para que no se solape */
+    padding-top: 44px;
 }
 
-/* Estilos para la caja blanca (main) */
+/* Sección de bienvenida (caja blanca grande). */
 main {
     background-color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Mantenemos la altura de 200px y aumentamos el padding */
     padding: 20px 100px; 
     height: 200px;
 }
 
+/* Título principal "iPhone". */
 main h1 {
-    /* CAMBIO AQUÍ: Aumentamos considerablemente el tamaño de la fuente */
     font-size: 80px; 
     font-weight: 600;
     color: #1d1d1f;
 }
 
+/* Eslogan "Diseñado para conquistarte". */
 main h2 {
-    /* CAMBIO AQUÍ: También aumentamos el tamaño del subtítulo */
     font-size: 24px; 
     font-weight: 700; 
     color: #1d1d1f;
 }
 
-/* Contenedor para el video y los elementos superpuestos */
+/* Contenedor del video principal. */
 .video-wrapper {
-    position: relative;
-    background-color: #000; /* Fondo negro por si el video tarda en cargar */
+    position: relative; /* Necesario para posicionar elementos hijos de forma absoluta. */
+    background-color: #000; /* Se muestra mientras el video carga. */
 }
 
-/* Texto superpuesto en el video */
+/* Texto superpuesto en el video, centrado con transform. */
 .video-text-overlay {
     position: absolute;
     top: 50%;
@@ -104,18 +112,18 @@ main h2 {
     font-weight: 700;
     text-align: center;
     z-index: 5;
-    text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5); /* Sombra para legibilidad */
-    pointer-events: none; /* Evita que el texto intercepte clics del mouse */
+    text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5); /* Sombra para mejorar legibilidad. */
+    pointer-events: none; /* Permite hacer clic 'a través' del texto. */
 }
 
-/* Estilos para el video como contenido */
+/* Etiqueta de video. */
 .video-content {
     width: 100%;
     height: auto;
-    display: block;
+    display: block; /* Evita espacios extra debajo del video. */
 }
 
-/* Estilo para el botón de control del video */
+/* Botón de play/pausa del video. */
 .video-control {
     position: absolute;
     bottom: 30px;
@@ -137,4 +145,187 @@ main h2 {
 
 .video-control:hover {
     background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+/* --- Sección de Características --- */
+/* Contenedor principal de las tarjetas de características. */
+.features-section {
+    padding: 15px;
+    background-color: #fff;
+    margin-top: 120px; /* Espacio en blanco entre el video y esta sección. */
+}
+
+/* Cuadrícula para las tarjetas, usando CSS Grid. */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas por defecto. */
+    gap: 15px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Estilo base para cada tarjeta. */
+.feature-card {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden; /* Asegura que la imagen respete los bordes redondeados. */
+}
+
+/* Contenedor del texto dentro de la tarjeta. */
+.feature-card .card-text {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 2; /* Se asegura de que el texto esté sobre la imagen. */
+}
+
+/* Título secundario (gris) de la tarjeta. */
+.feature-card .card-text h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* Título principal de la tarjeta. */
+.feature-card .card-text h2 {
+    font-size: 22px;
+    font-weight: 700;
+    max-width: 90%;
+}
+
+/* Imagen de fondo de la tarjeta. */
+.feature-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La imagen llena la tarjeta sin deformarse. */
+}
+
+/* Colores de texto para tarjetas con fondo oscuro. */
+.card-camaras .card-text,
+.card-chip .card-text,
+.card-privacidad .card-text {
+    color: #fff;
+}
+
+.card-camaras .card-text h4,
+.card-chip .card-text h4,
+.card-privacidad .card-text h4 {
+    color: #86868b;
+}
+
+/* Colores de texto para tarjetas con fondo claro. */
+.card-innovacion .card-text {
+    color: #1d1d1f;
+}
+
+.card-innovacion .card-text h4 {
+    color: #6e6e73;
+}
+
+
+/* --- Pie de Página (Footer) --- */
+/* Estilo general del pie de página. */
+.site-footer {
+    background-color: #f5f5f7;
+    color: #1d1d1f;
+    padding: 40px 20px;
+    margin-top: 60px;
+}
+
+/* Contenedor que centra el contenido del footer. */
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Título principal "iPhone" en el footer. */
+.footer-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #d2d2d7;
+    padding-bottom: 20px;
+}
+
+/* Cuadrícula para las columnas de enlaces. */
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+/* Títulos de cada columna (ej. "Conoce el iPhone"). */
+.footer-column h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: #86868b;
+    margin-bottom: 1em;
+}
+
+/* Lista de enlaces. */
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Espaciado entre elementos de la lista. */
+.footer-column ul li {
+    margin-bottom: 1em;
+}
+
+/* Enlaces normales del footer. */
+.footer-column ul a {
+    color: #515154;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-column ul a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo especial para los enlaces principales (modelos de iPhone). */
+.footer-column li.footer-main-link a {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1d1d1f;
+}
+
+
+/* --- Estilos Responsivos (Media Queries) --- */
+/* Para pantallas tipo tableta. */
+@media (max-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Para pantallas tipo móvil. */
+@media (max-width: 768px) {
+    /* En móviles, casi todo se va a una sola columna. */
+    .features-grid,
+    .footer-columns {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ajuste de la sección de bienvenida para móviles. */
+    main {
+        padding: 20px;
+        height: auto;
+        flex-direction: column;
+        text-align: center;
+    }
+    main h1 {
+        font-size: 60px;
+    }
+    main h2 {
+        font-size: 20px;
+    }
+
+    /* Ajuste de texto en las tarjetas para móviles. */
+    .feature-card .card-text h2 {
+        font-size: 24px;
+    }
 }
