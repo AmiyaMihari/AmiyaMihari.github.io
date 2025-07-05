@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guillermo Jair Montiel Juárez - CV</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilos del header principal */
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 10; /* Me aseguro de que el header esté por encima */
+        }
+
+        /* Patrón de fondo animado - se ve genial */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.03) 20px
+            );
+            animation: pattern 20s linear infinite;
+            z-index: -1; /* El patrón va atrás del contenido */
+        }
+
+        @keyframes pattern {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* No necesito imagen de perfil, mejor mantenerlo simple */
+        .profile-img {
+            display: none;
+        }
+
+        /* Títulos del header - necesito que se vean siempre */
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Layout principal - dos columnas que se ven bien */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+            position: relative;
+            z-index: 5; /* Por debajo del header pero arriba del fondo */
+        }
+
+        .sidebar {
+            background: #f8f9fa;
+            padding: 40px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .content {
+            padding: 40px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp 0.6s ease forwards;
+            animation-fill-mode: both;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes slideInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #e74c3c;
+            transition: width 0.3s ease;
+        }
+
+        .section:hover h2::after {
+            width: 100%;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+        .contact-info li:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-info i {
+            width: 25px;
+            color: #3498db;
+            margin-right: 15px;
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .skill-bar {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 4px;
+            width: 0;
+            transition: width 2s ease;
+            animation: fillSkill 2s ease forwards;
+        }
+
+        @keyframes fillSkill {
+            to { width: var(--skill-level); }
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .experience-item:hover, .education-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            z-index: 2;
+        }
+
+        .experience-item h3, .education-item h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        .download-btn i {
+            margin-right: 8px;
+        }
+
+        .floating-icons {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .floating-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .floating-icon:hover {
+            transform: scale(1.1);
+            background: #3498db;
+            color: white;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #e74c3c);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-icons {
+                display: none;
+            }
+            
+            .download-btn {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 20px auto;
+                display: block;
+                width: fit-content;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #34495e;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: #2c3e50;
+            transform: rotate(180deg);
+        }
+
+        body.dark-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+
+        body.dark-theme .container {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        body.dark-theme .sidebar {
+            background: #34495e;
+        }
+
+        body.dark-theme .experience-item,
+        body.dark-theme .education-item {
+            background: #34495e;
+            color: #ecf0f1;
+        }
+
+        body.dark-theme .section h2 {
+            color: #3498db;
+        }
+
+        /* Mejoras para mantener el orden visual correcto */
+        .container {
+            isolation: isolate;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Iconos flotantes - siempre visibles */
+        .floating-icons {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <button class="download-btn" onclick="downloadPDF()">
+        <i class="fas fa-download"></i>
+        Descargar PDF
+    </button>
+
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="floating-icons">
+        <div class="floating-icon" onclick="scrollToSection('about')">
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="floating-icon" onclick="scrollToSection('experience')">
+            <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="floating-icon" onclick="scrollToSection('education')">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="floating-icon" onclick="scrollToSection('skills')">
+            <i class="fas fa-code"></i>
+        </div>
+    </div>
+
+    <div class="container" id="cv-container">
+        <header class="header">
+            <h1 id="name">Guillermo Jair Montiel Juárez</h1>
+            <p id="title">Data Engineer & Informatics Student</p>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <section class="section" id="contact">
+                    <h2><i class="fas fa-address-card"></i> Contacto</h2>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> jair.montielj@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +52 55 3075 0601</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Mexico City, Mexico</li>
+                        <li><i class="fab fa-linkedin"></i> LinkedIn</li>
+                        <li><i class="fab fa-github"></i> Github</li>
+                    </ul>
+                </section>
+
+                <section class="section" id="skills">
+                    <h2><i class="fas fa-code"></i> Habilidades</h2>
+                    <ul class="skills-list">
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Python</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-level: 95%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Google Cloud Platform</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-level: 90%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>SQL & Databases</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-level: 85%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Machine Learning</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-level: 80%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Arduino & C</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-level: 85%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Linux & Bash</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-level: 80%"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>HTML/CSS/JavaScript</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-level: 70%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="section">
+                    <h2><i class="fas fa-language"></i> Idiomas</h2>
+                    <ul class="skills-list">
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Español</span>
+                                <span>Nativo</span>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Inglés</span>
+                                <span>B2/Upper-Intermediate</span>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+
+            <main class="content">
+                <section class="section" id="about">
+                    <h2><i class="fas fa-user"></i> Sobre Mí</h2>
+                    <p>Soy un estudiante de Informática con sólida experiencia en ingeniería de datos y machine learning. Con formación en Google Cloud Platform y experiencia práctica en Python, me especializo en el análisis de datos y automatización de procesos usando inteligencia artificial. Mi experiencia incluye trabajo con grandes volúmenes de datos, implementación de algoritmos de ML y desarrollo de soluciones tecnológicas innovadoras. Actualmente curso mi licenciatura en Informática en la UNAM y tengo experiencia previa en Física, lo que me brinda una base analítica sólida para resolver problemas complejos.</p>
+                </section>
+
+                <section class="section" id="experience">
+                    <h2><i class="fas fa-briefcase"></i> Experiencia Profesional</h2>
+                    
+                    <div class="experience-item">
+                        <h3>Data Engineer/Analyst Jr</h3>
+                        <div class="date">Febrero 2024 – Agosto 2024 | Thinkcare Technologies</div>
+                        <p>• Entrenamiento especializado en Google Cloud con enfoque en servicios de datos, obteniendo certificaciones oficiales.<br>
+                        • Aplicación de agentes impulsados por IA utilizando Python y LangChain para automatizar procesos.<br>
+                        • Análisis exploratorio de datos con Python (Pandas, Polars) para optimizar estrategias y planificación de rutas.<br>
+                        • Implementación de algoritmos de Machine Learning (k-means clustering) con Python y Scikit-learn para agrupar puntos de entrega y crear zonas de entrega automatizadas.</p>
+                    </div>
+                </section>
+
+                <section class="section" id="education">
+                    <h2><i class="fas fa-graduation-cap"></i> Educación</h2>
+                    
+                    <div class="education-item">
+                        <h3>Licenciatura en Informática</h3>
+                        <div class="date">Graduación esperada: Diciembre 2028 | Universidad Nacional Autónoma de México</div>
+                        <p><strong>Facultad de Contaduría y Administración</strong><br>
+                        Materias relevantes: Diseño de Algoritmos, Fundamentos de Informática, Robótica y Control.</p>
+                    </div>
+
+                    <div class="education-item">
+                        <h3>Licenciatura en Física (50% completado)</h3>
+                        <div class="date">Universidad Nacional Autónoma de México</div>
+                        <p><strong>Facultad de Ciencias</strong><br>
+                        Materias relevantes: Cálculo, álgebra lineal, mecánica clásica y electromagnetismo, fortaleciendo fundamentos analíticos y de resolución de problemas.</p>
+                    </div>
+
+                    <div class="education-item">
+                        <h3>Google Cloud Computing Foundations Academy</h3>
+                        <div class="date">Octubre 2023 – Diciembre 2023</div>
+                        <p>Programa de entrenamiento intensivo presencial en las oficinas de Google México, enfocado en proyectos prácticos en Google Cloud Platform (GCP).</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2><i class="fas fa-university"></i> Experiencia Académica y Liderazgo</h2>
+                    
+                    <div class="experience-item">
+                        <h3>PROTECSA (Asociación Estudiantil) | Becario y Desarrollador de Proyectos</h3>
+                        <div class="date">Febrero 2025 - Presente</div>
+                        <p>• Desarrollo de un emulador de terminal funcional en Linux usando scripting en Bash, diseñado con enfoque modular para crear funciones y comandos personalizados.<br>
+                        • Diseño y modelado de base de datos relacional para sistema bancario, creando diagramas E-R, esquemas relacionales y consultas SQL complejas para análisis de datos.<br>
+                        • Desarrollo de aplicación de gestión de tienda en C, implementando funcionalidades para gestión de usuarios, productos y carrito de compras usando memoria dinámica y estructuras de datos.<br>
+                        • Desarrollo de robot seguidor de líneas usando Arduino, implementando sensores infrarrojos y algoritmos de control.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2><i class="fas fa-trophy"></i> Certificaciones y Cursos</h2>
+                    <ul>
+                        <li>🏅 <strong>Google Cloud Certified:</strong> Cloud Digital Leader, Professional Workspace Administrator, Professional Data Engineer</li>
+                        <li>📜 <strong>NDG Linux Unhatched Essentials</strong> - Cisco Networking Academy</li>
+                        <li>🤖 <strong>Huawei AI Basics and HCIA-AI V3.5 Course</strong></li>
+                        <li>� <strong>Scrum Fundamentals Certified</strong> - SCRUMstudy</li>
+                        <li>☁️ <strong>Google Cloud Computing Foundations Academy</strong> - Google México</li>
+                    </ul>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Optimización del scroll para mejor rendimiento
+        let ticking = false;
+
+        function updateScrollEffects() {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            
+            // Barra de progreso del scroll
+            const progress = (scrollTop / scrollHeight) * 100;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+            }
+
+            // Parallax del header pero limitado para evitar problemas
+            const header = document.querySelector('.header');
+            if (header && scrollTop < window.innerHeight) {
+                // Solo aplico parallax si no va a causar problemas de z-index
+                const translateY = Math.min(scrollTop * 0.15, 50); // Limito el movimiento
+                header.style.transform = `translateY(${translateY}px)`;
+            }
+
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollEffects);
+                ticking = true;
+            }
+        }
+
+        // Solo un listener de scroll para todo
+        window.addEventListener('scroll', requestTick);
+
+        // Función para descargar PDF
+        function downloadPDF() {
+            const element = document.getElementById('cv-container');
+            const opt = {
+                margin: 0.5,
+                filename: 'Guillermo_Jair_Montiel_Juarez_CV.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            // Ocultar elementos que no queremos en el PDF
+            const downloadBtn = document.querySelector('.download-btn');
+            const themeToggle = document.querySelector('.theme-toggle');
+            const floatingIcons = document.querySelector('.floating-icons');
+            const progressBar = document.getElementById('progressBar');
+
+            downloadBtn.style.display = 'none';
+            themeToggle.style.display = 'none';
+            floatingIcons.style.display = 'none';
+            progressBar.style.display = 'none';
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restaurar elementos después de generar el PDF
+                downloadBtn.style.display = 'block';
+                themeToggle.style.display = 'block';
+                floatingIcons.style.display = 'flex';
+                progressBar.style.display = 'block';
+            });
+        }
+
+        // Navegación suave que funciona bien
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                // Calculo mejor la posición para que no se esconda nada
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const elementPosition = element.offsetTop - headerHeight - 30; // Un poco más de espacio
+                
+                window.scrollTo({
+                    top: Math.max(0, elementPosition), // No scroll negativo
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Toggle tema oscuro/claro
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const icon = document.querySelector('.theme-toggle i');
+            
+            if (document.body.classList.contains('dark-theme')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Configuración inicial cuando carga la página
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cargo el tema que tenía guardado
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                const themeIcon = document.querySelector('.theme-toggle i');
+                if (themeIcon) {
+                    themeIcon.className = 'fas fa-sun';
+                }
+            }
+
+            // Animo las barras de habilidades con un delay escalonado
+            setTimeout(() => {
+                const skillBars = document.querySelectorAll('.skill-progress');
+                skillBars.forEach((bar, index) => {
+                    // Un pequeño delay entre cada barra para que se vea mejor
+                    setTimeout(() => {
+                        bar.style.width = bar.style.getPropertyValue('--skill-level');
+                    }, index * 150); // Más tiempo entre cada una
+                });
+            }, 1800); // Empiezo un poco más tarde
+        });
+
+        // Observer para las animaciones cuando entran en vista
+        const observerOptions = {
+            threshold: 0.2, // Un poco más estricto para evitar animaciones prematuras
+            rootMargin: '0px 0px -80px 0px' // Más margen para mejor timing
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animo la entrada
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    // Una vez animado, ya no lo necesito observar
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Aplico el observer después de que todo esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.section').forEach(section => {
+                    observer.observe(section);
+                });
+            }, 200); // Un pequeño delay para que no interfiera con otras animaciones
+        });
+
+        // Efecto de escritura que se ve cool
+        function typeWriter(element, text, speed = 100) {
+            element.innerHTML = '';
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Inicio el efecto de escritura después de cargar
+        setTimeout(() => {
+            const nameElement = document.getElementById('name');
+            const titleElement = document.getElementById('title');
+            
+            // Primero escribo el nombre
+            typeWriter(nameElement, 'Guillermo Jair Montiel Juárez', 120);
+            
+            // Después el título con un delay
+            setTimeout(() => {
+                typeWriter(titleElement, 'Data Engineer & Informatics Student', 80);
+            }, 3500); // Un poco menos de tiempo para que fluya mejor
+        }, 800); // Empiezo un poco antes para que se vea desde el inicio
+
+        // Contador animado para las habilidades
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function updateCounter() {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start) + '%';
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target + '%';
+                }
+            }
+            updateCounter();
+        }
+
+        // Un easter egg divertido - código Konami
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            konamiCode = konamiCode.slice(-10); // Solo guardo los últimos 10
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                // Modo desarrollador activado!
+                document.body.style.background = 'linear-gradient(135deg, #00ff00 0%, #0066cc 100%)';
+                alert('¡Modo desarrollador activado! 🚀');
+                
+                // Vuelvo al normal después de 3 segundos
+                setTimeout(() => {
+                    document.body.style.background = document.body.classList.contains('dark-theme') 
+                        ? 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)'
+                        : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 3000);
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
